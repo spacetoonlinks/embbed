@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Episode Server Input</title>
+	<script type="text/javascript">
+		function generateCode() {
+			var serverInput = document.getElementById("serverInput").value;
+			var serverListCount = parseInt(document.getElementById("serverListCount").value);
+			var servers = serverInput.split(",");
+			var code = "<ul id=\"server8\" class=\"serverEpisode\">\n";
+			for (var i = 1; i <= serverListCount; i++) {
+				code += "\t<li>\n";
+				code += "\t\t<div class=\"DagPlayOpt\" data-embed=\"" + servers[i-1] + "\" data-id=\"Server-" + i + "\">\n";
+				code += "\t\t\t<span>0" + i + "</span>\n";
+				code += "\t\t</div>\n";
+				code += "\t</li>\n";
+			}
+			code += "</ul>";
+			document.getElementById("codeDisplay").innerHTML = code;
+			document.getElementById("popupWindow").style.display = "block";
+		}
+
+		function copyCode() {
+			var codeToCopy = document.getElementById("codeDisplay").innerHTML;
+			navigator.clipboard.writeText(codeToCopy);
+			alert("HTML code copied to clipboard!");
+		}
+
+		function closePopup() {
+			document.getElementById("popupWindow").style.display = "none";
+		}
+	</script>
+	<style type="text/css">
+     /* General styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  padding-top: 50px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #3368ff;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding-top: 80px;
+}
+
+.popup-content {
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  text-align: center;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) { /* Apply styles for screens larger than 768px */
+  input[type="text"] {
+    width: 70%;
+    margin-right: 15px;
+    margin-bottom: 0;
+  }
+
+  label {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 0;
+  }
+
+  button {
+    margin-bottom: 0;
+  }
+} 
+
+
+
+	</style>
+</head>
+<body>
+	<div style="text-align: center;">
+	<label for="serverInput">Enter [ , ] comma-separated episode server strings:</label><br>
+    <br>
+    <textarea id="serverInput" name="serverInput" rows="25" cols="150">
+
+</textarea>
+
+	<br>
+
+
+	<br><br>
+	<label for="serverListCount">Enter number of server list items to generate:</label>
+	<input type="number" id="serverListCount"><br>
+    <br><br>
+	<button onclick="generateCode()">Generate HTML Code</button>
+    </div>
+
+	<div class="popup" id="popupWindow">
+		<div class="popup-content">
+			<span class="close-button" onclick="closePopup()">&times;</span>
+			<h2>Generated HTML Code:</h2>
+			<pre id="codeDisplay"></pre>
+			<button onclick="copyCode()">Copy HTML Code</button>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
